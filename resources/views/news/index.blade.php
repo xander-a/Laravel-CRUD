@@ -1,11 +1,10 @@
-
 @extends('layouts.master')
 
 @section('title', $title)
 
 @section('sidebar')
     @parent
-    // you can add something here
+    {{-- you can add something here --}}
 @endsection
 
 @section('content') 
@@ -23,18 +22,14 @@
                         <a href="{{ route('news.edit', $data->id) }}">Edit</a>  
                     </span> 
                     
-                    <!-- Delete should be a button -->
-                    {!! Form::open(array(
-                            'method' => 'DELETE',
-                            'route' => ['news.destroy', $data->id],
-                            'onsubmit' => "return confirm('Are you sure you want to delete?')",
-                        )) 
-                    !!}
-                        {!! Form::submit('Delete') !!}
-                    {!! Form::close() !!}
+                    <!-- Delete button using plain HTML -->
+                    <form method="POST" action="{{ route('news.destroy', $data->id) }}" onsubmit="return confirm('Are you sure you want to delete?')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit">Delete</button>
+                    </form>
                     <!-- End Delete button -->
                 </div>
-            
             
             {{ $data->short_description }}
         </div>

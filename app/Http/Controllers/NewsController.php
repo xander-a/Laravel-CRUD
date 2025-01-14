@@ -32,20 +32,17 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate(
-            $request,
-            array(
-                'title' => 'required',
-                'slug' => 'required',
-                'short_description' => 'required',
-                'full_content' => 'required',
-            )
-        );
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'slug' => 'required',
+            'author' => 'required',
+            'category' => 'required',
+            'short_description' => 'required',
+            'full_content' => 'required',
+        ]);
 
-        $input = $request->all();
-        //dd($input); // dd() helper function is print_r alternative
 
-        News::create($input);
+        News::create($validatedData);
 
         Session::flash('flash_message', 'News added successfully!');
 
@@ -58,9 +55,9 @@ class NewsController extends Controller
      * Display the specified resource.
      */
 
-     
+
     public function show(string $id)
-    {   
+    {
         $news = News::where('slug', $id)->first();
         return view('news.show', array('news' => $news));
     }
@@ -82,13 +79,14 @@ class NewsController extends Controller
     {
         $news = News::findOrFail($id);
 
-        $this->validate($request, array(
-                                'title' => 'required',
-                                'slug' => 'required',
-                                'short_description' => 'required',
-                                'full_content' => 'required',
-                            )
-                        );
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'slug' => 'required',
+            'author' => 'required',
+            'category' => 'required',
+            'short_description' => 'required',
+            'full_content' => 'required',
+        ]);
 
         $input = $request->all();
 
@@ -96,7 +94,7 @@ class NewsController extends Controller
 
         Session::flash('flash_message', 'News updated successfully!');
 
-        return redirect()->back();
+        return redirect()->route('news.index');;
     }
 
     /**
@@ -112,4 +110,6 @@ class NewsController extends Controller
 
         return redirect()->route('news.index');
     }
+
+    //For validation
 }
