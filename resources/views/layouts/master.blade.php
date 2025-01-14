@@ -26,7 +26,7 @@
         </div>
         
         <div>
-            Footer @ 2016
+            Footer Side
         </div>  
     </body>
 </html>

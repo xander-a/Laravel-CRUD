@@ -3,10 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
 
+// This is a test route if it is working 
+// use localhost/name-of-folder/public/ to see the Hello World text
 Route::get('/', function () {
     return 'Hello World';
 });
 
+// Assign route to each controller method
+// /news route as news.create that uses create method from Controller, thats sums it up the explanation
 Route::get('/news', array('as' => 'news.index', 'uses' => 'App\Http\Controllers\NewsController@index'));
 Route::get('/news/add', array('as' => 'news.create', 'uses' => 'App\Http\Controllers\NewsController@create'));
 Route::post('/news/store', array('as' => 'news.store', 'uses' => 'App\Http\Controllers\NewsController@store'));
